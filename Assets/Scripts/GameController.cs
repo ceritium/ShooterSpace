@@ -15,6 +15,9 @@ public class GameController : MonoBehaviour {
 	public Text scoreText;
 	private int score;
 
+	public Text comboText;
+	private int combo;
+
 	public Text gameOverText;
 	public Text restartText;
 
@@ -30,8 +33,11 @@ public class GameController : MonoBehaviour {
 
 		gameOverText.text = "";
 		restartText.text = "";
+		comboText.text = "";
 
 		score = 0;
+		combo = 1;
+
 		UpdateScore ();
 
 		StartCoroutine (SpawnWaves ());
@@ -71,14 +77,22 @@ public class GameController : MonoBehaviour {
 
 	public void AddScore (int newScoreValue)
 	{
-		score += newScoreValue;
+
+		score += newScoreValue * combo;
+		combo += 1;
 		UpdateScore ();
 
+	}
+
+	public void ResetCombo ()
+	{
+		combo = 1;
 	}
 
 	void UpdateScore ()
 	{
 		scoreText.text = "Score: " + score;
+		comboText.text = "combo x " + combo;
 	}
 
 	public void GameOver ()
